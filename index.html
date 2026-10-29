@@ -422,8 +422,28 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
 .app .mailhead .subj { font-size: 17px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
 .app .mail-wrap { overflow-x: auto; }
 .app .mail-btn { cursor: pointer; }
+
+.case-nav { border-bottom: 1px solid var(--pg-line); background: color-mix(in srgb, var(--pg-surface) 85%, transparent); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 30; }
+.case-nav-inner { max-width: 1200px; margin-inline: auto; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13.5px; }
+.case-back { font-weight: 600; color: var(--pg-ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.case-back:hover { color: var(--accent-text); }
+.lang-switch { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 12px; color: var(--pg-muted); }
+.lang-switch a, .lang-switch span.active { padding: 4px 10px; border-radius: 999px; text-decoration: none; font-family: var(--f-body); font-weight: 600; font-size: 12.5px; }
+.lang-switch span.active { background: var(--pg-ink); color: var(--pg-bg); }
+.lang-switch a { background: var(--pg-surface); color: var(--pg-ink); border: 1px solid var(--pg-line); }
+.lang-switch a:hover { border-color: var(--pg-muted); }
 </style>
 
+<nav class="case-nav" aria-label="Case study navigation">
+  <div class="case-nav-inner">
+    <a class="case-back" href="https://saarshoshan24.github.io/">← Saar Shoshan Portfolio</a>
+    <div class="lang-switch" role="group" aria-label="Demo interface language">
+      <span>App UI:</span>
+      <span class="active" aria-current="page">English (LTR)</span>
+      <a href="https://saarshoshan24.github.io/email-to-deal-tracker/he/">עברית (Original RTL)</a>
+    </div>
+  </div>
+</nav>
 <div class="wrap">
   <header class="hero">
     <p class="eyebrow">Case study · Email-to-Deal Tracker</p>
@@ -433,7 +453,7 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
       <div><dt>My role</dt><dd>Solo<small>design, build, launch, support</small></dd></div>
       <div><dt>In daily use</dt><dd>Since Jul 2026<small>by a manager and sales team</small></dd></div>
       <div><dt>Running cost</dt><dd>≈ $10 / year<small>no servers to rent</small></dd></div>
-      <div><dt>Built for</dt><dd>Phones<small>Hebrew, right-to-left</small></dd></div>
+      <div><dt>Built for</dt><dd>Mobile &amp; Web<small>English LTR &amp; <a href="https://saarshoshan24.github.io/email-to-deal-tracker/he/">Hebrew RTL</a></small></dd></div>
     </dl>
   </header>
 
@@ -477,7 +497,7 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
           <span class="url" id="url">tracker.example.com<b>/</b></span>
         </div>
         <div class="screen" id="screen">
-          <div class="app" id="app" dir="rtl" lang="he"></div>
+          <div class="app" id="app" dir="ltr" lang="en"></div>
         </div>
       </div>
       <p class="caption">A working demo with invented data. Open a deal and save an outcome. <a href="#" id="resetDemo">Reset</a></p>
@@ -598,31 +618,31 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
     plum:   { name: 'Plum & Co.',      letter: 'P', color: '#7A4FB5', press: '#643F97', slate: '#2A2838', email: { primary: '#3A2E5C', accent: '#7A4FB5', bg: '#F0ECF7' } }
   };
 
-  /* ── sample data (invented) ── */
+  /* ── sample data (invented, English LTR edition) ── */
   const TODAY = '2026-09-28';
-  const MANAGER = { name: 'רותם כהן' };
-  const AGENTS = { 2: 'דנה לוי', 3: 'יואב מזרחי', 4: 'מיכל אברהם' };
+  const MANAGER = { name: 'Rotem Cohen' };
+  const AGENTS = { 2: 'Dana Levy', 3: 'Yoav Mizrahi', 4: 'Michal Avraham' };
   const NUDGE_DAYS = 4;
 
   function seed() {
     const mk = (o) => Object.assign({ archived: false, followOrig: null, follow: null, notes: [], phone: null, completedOn: null, editor: null }, o);
     return [
-      mk({ id: 31, ref: '10482', customer: 'גן אירועים הדקל', amount: 18400, agent: 2, status: 'open', created: '2026-09-15', follow: '2026-10-04', followOrig: '2026-09-22', editor: 'דנה לוי', phone: '050-0000000',
-           notes: [ { kind: 'event', body: 'נשלחה תזכורת לסוכן', author: 'מערכת', at: '2026-09-19 16:00' },
-                    { kind: 'event', body: 'תאריך היעד עודכן: 22/09/2026 ← 04/10/2026', author: 'דנה לוי', at: '2026-09-21 11:42' },
-                    { kind: 'note',  body: 'הלקוח ביקש לחזור אליו אחרי החגים. קבענו שיחה ל־4/10, הוא רוצה לסגור לפני סוף השנה.', author: 'דנה לוי', at: '2026-09-21 11:42' } ] }),
-      mk({ id: 34, ref: '10491', customer: 'מאפיית השדה', amount: 6250, agent: 3, status: 'open', created: '2026-09-24', follow: '2026-09-30' }),
-      mk({ id: 35, ref: '10495', customer: 'סטודיו אורן לעיצוב', amount: 9800, agent: 4, status: 'open', created: '2026-09-18', follow: '2026-09-25',
-           notes: [ { kind: 'event', body: 'נשלחה תזכורת לסוכן', author: 'מערכת', at: '2026-09-22 16:00' } ] }),
-      mk({ id: 36, ref: '10498', customer: 'מוסך השרון', amount: 5400, agent: 3, status: 'open', created: '2026-09-20', follow: '2026-10-06',
-           notes: [ { kind: 'event', body: 'נשלחה תזכורת לסוכן', author: 'מערכת', at: '2026-09-24 16:00' } ] }),
-      mk({ id: 37, ref: '10503', customer: 'מרכז הספורט אופק', amount: 12000, agent: null, status: 'open', created: '2026-09-27' }),
-      mk({ id: 38, ref: '10507', customer: 'בית ספר ניצנים', amount: 4900, agent: 2, status: 'open', created: '2026-09-26' }),
-      mk({ id: 22, ref: '10455', customer: 'הובלות נחל בע״מ', amount: 22300, agent: 3, status: 'completed', created: '2026-09-08', follow: '2026-09-16', completedOn: '2026-09-23' }),
-      mk({ id: 25, ref: '10461', customer: 'קפה המושבה', amount: 3100, agent: 4, status: 'cancelled', created: '2026-09-10', follow: '2026-09-18',
-           notes: [ { kind: 'event', body: 'העסקה בוטלה', author: 'מיכל אברהם', at: '2026-09-24 09:15' },
-                    { kind: 'note', body: 'הלקוח בחר בספק אחר במחיר נמוך יותר.', author: 'מיכל אברהם', at: '2026-09-24 09:15' } ] }),
-      mk({ id: 27, ref: '10470', customer: 'ברק ושות׳ – משרד עורכי דין', amount: 7600, agent: 2, status: 'completed', created: '2026-09-11', follow: '2026-09-19', completedOn: '2026-09-25' })
+      mk({ id: 31, ref: '10482', customer: 'Palm Grove Events', amount: 18400, agent: 2, status: 'open', created: '2026-09-15', follow: '2026-10-04', followOrig: '2026-09-22', editor: 'Dana Levy', phone: '050-0000000',
+           notes: [ { kind: 'event', body: 'Agent follow-up reminder sent', author: 'System', at: '2026-09-19 16:00' },
+                    { kind: 'event', body: 'Follow-up date updated: 22/09/2026 → 04/10/2026', author: 'Dana Levy', at: '2026-09-21 11:42' },
+                    { kind: 'note',  body: 'Client asked to reconnect after the holidays. Call scheduled for Oct 4 — wants to finalize before year-end.', author: 'Dana Levy', at: '2026-09-21 11:42' } ] }),
+      mk({ id: 34, ref: '10491', customer: 'Fieldstone Bakery', amount: 6250, agent: 3, status: 'open', created: '2026-09-24', follow: '2026-09-30' }),
+      mk({ id: 35, ref: '10495', customer: 'Oren Design Studio', amount: 9800, agent: 4, status: 'open', created: '2026-09-18', follow: '2026-09-25',
+           notes: [ { kind: 'event', body: 'Agent follow-up reminder sent', author: 'System', at: '2026-09-22 16:00' } ] }),
+      mk({ id: 36, ref: '10498', customer: 'Sharon Auto Service', amount: 5400, agent: 3, status: 'open', created: '2026-09-20', follow: '2026-10-06',
+           notes: [ { kind: 'event', body: 'Agent follow-up reminder sent', author: 'System', at: '2026-09-24 16:00' } ] }),
+      mk({ id: 37, ref: '10503', customer: 'Horizon Sports Center', amount: 12000, agent: null, status: 'open', created: '2026-09-27' }),
+      mk({ id: 38, ref: '10507', customer: 'Nitzanim Academy', amount: 4900, agent: 2, status: 'open', created: '2026-09-26' }),
+      mk({ id: 22, ref: '10455', customer: 'Nahal Logistics Ltd.', amount: 22300, agent: 3, status: 'completed', created: '2026-09-08', follow: '2026-09-16', completedOn: '2026-09-23' }),
+      mk({ id: 25, ref: '10461', customer: 'Colony Roasters Cafe', amount: 3100, agent: 4, status: 'cancelled', created: '2026-09-10', follow: '2026-09-18',
+           notes: [ { kind: 'event', body: 'Deal cancelled', author: 'Michal Avraham', at: '2026-09-24 09:15' },
+                    { kind: 'note', body: 'Client selected a lower-priced vendor.', author: 'Michal Avraham', at: '2026-09-24 09:15' } ] }),
+      mk({ id: 27, ref: '10470', customer: 'Barak & Co. Law Offices', amount: 7600, agent: 2, status: 'completed', created: '2026-09-11', follow: '2026-09-19', completedOn: '2026-09-25' })
     ];
   }
 
@@ -632,12 +652,12 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
   /* ── helpers ── */
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const ildate = (s) => { if (!s) return ''; const [y, m, d] = s.slice(0, 10).split('-'); return d + '/' + m + '/' + y; };
-  const ils = (n) => n == null ? '' : '₪' + Math.round(n).toLocaleString('en-US');
+  const ils = (n) => n == null ? '' : '$' + Math.round(n).toLocaleString('en-US');
   const toDate = (s) => new Date(s.slice(0, 10) + 'T00:00:00');
   const addDays = (s, n) => { const t = toDate(s); t.setDate(t.getDate() + n); return t.toISOString().slice(0, 10); };
   const dayDiff = (a, b) => Math.round((toDate(a) - toDate(b)) / 86400000);
-  const STATUS_HE = { open: 'פתוח', completed: 'הועברה לביצוע', cancelled: 'בוטל' };
-  const title = (d) => 'הצעת מחיר ' + d.ref + ' – ' + d.customer;
+  const STATUS_EN = { open: 'Open', completed: 'Completed', cancelled: 'Cancelled' };
+  const title = (d) => 'Quote #' + d.ref + ' – ' + d.customer;
   const agentName = (id) => id ? AGENTS[id] : null;
   const nudgeAt = (d) => d.nudgeAt || addDays(d.created, NUDGE_DAYS);
   const isDelayed = (d) => !!(d.followOrig && d.follow && d.followOrig !== d.follow);
@@ -669,67 +689,67 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
         offset += circ * frac;
       });
     }
-    return '<svg viewBox="0 0 120 120" width="118" height="118" role="img" aria-label="פילוח סטטוס: ' + o + ' פתוחות, ' + c + ' הושלמו, ' + x + ' בוטלו" style="transform:rotate(-90deg)">' + arcs + '</svg>' +
-      '<div class="donut-center"><span class="donut-total">' + total + '</span><span class="donut-total-lbl">עסקאות</span></div>';
+    return '<svg viewBox="0 0 120 120" width="118" height="118" role="img" aria-label="Status breakdown: ' + o + ' open, ' + c + ' completed, ' + x + ' cancelled" style="transform:rotate(-90deg)">' + arcs + '</svg>' +
+      '<div class="donut-center"><span class="donut-total">' + total + '</span><span class="donut-total-lbl">deals</span></div>';
   }
 
   /* ── app chrome ── */
   function chrome(inner, activeTab) {
     const b = brand();
     const tab = (key, label) => '<button type="button" class="app-tab' + (activeTab === key ? ' active' : '') + '" data-nav="' + key + '">' + label + '</button>';
-    return '<header class="topbar"><span class="brand">' + logo(28) + esc(b.name) + '</span><span class="who">' + esc(MANAGER.name) + '</span><span class="logout">יציאה</span></header>' +
-      '<nav class="app-tabs" aria-label="ניווט ראשי"><div class="app-tabs-inner">' + tab('deals', 'עסקאות') + tab('inquiry', 'פנייה מהשטח') + tab('archive', 'ארכיון') + '</div></nav>' +
-      '<main class="container"><p class="greeting">שלום ' + esc(MANAGER.name.split(' ')[0]) + '</p>' + (state.flash ? '<p class="flash" role="status">' + esc(state.flash) + '</p>' : '') + inner + '</main>';
+    return '<header class="topbar"><span class="brand">' + logo(28) + esc(b.name) + '</span><span class="who">' + esc(MANAGER.name) + '</span><span class="logout">Sign out</span></header>' +
+      '<nav class="app-tabs" aria-label="Main navigation"><div class="app-tabs-inner">' + tab('deals', 'Deals') + tab('inquiry', 'Field Inquiry') + tab('archive', 'Archive') + '</div></nav>' +
+      '<main class="container"><p class="greeting">Hello ' + esc(MANAGER.name.split(' ')[0]) + '</p>' + (state.flash ? '<p class="flash" role="status">' + esc(state.flash) + '</p>' : '') + inner + '</main>';
   }
 
   function dealItem(d) {
-    const owner = d.agent ? '<span class="owner">' + esc(agentName(d.agent)) + '</span>' : '<span class="owner unassigned">⚠ לא שויך</span>';
+    const owner = d.agent ? '<span class="owner">' + esc(agentName(d.agent)) + '</span>' : '<span class="owner unassigned">⚠ Unassigned</span>';
     let due;
     if (d.follow) {
-      due = '<span class="due">יעד: ' + ildate(d.follow) + '</span>';
-      if (isDelayed(d)) due += '<span class="delayed" title="נדחה מהתאריך המקורי ' + ildate(d.followOrig) + '">⚠ נדחה (מקורי: ' + ildate(d.followOrig) + (d.editor ? ', ע״י ' + esc(d.editor) : '') + ')</span>';
-    } else due = '<span class="due created">נוצר: ' + ildate(d.created) + '</span>';
+      due = '<span class="due">Due: ' + ildate(d.follow) + '</span>';
+      if (isDelayed(d)) due += '<span class="delayed" title="Rescheduled from original date ' + ildate(d.followOrig) + '">⚠ Rescheduled (orig: ' + ildate(d.followOrig) + (d.editor ? ', by ' + esc(d.editor) : '') + ')</span>';
+    } else due = '<span class="due created">Created: ' + ildate(d.created) + '</span>';
     const ln = latestNote(d);
     return '<li class="deal status-' + d.status + '" data-deal="' + d.id + '"><a class="deal-link" href="#" data-open="' + d.id + '">' +
       '<span class="deal-title" dir="auto" title="' + esc(title(d)) + '">' + esc(d.customer) + ' <span class="deal-ref" dir="ltr">#' + d.ref + '</span></span>' +
-      '<span class="deal-meta">' + due + owner + (d.amount != null ? '<span class="amount" dir="ltr">' + ils(d.amount) + '</span>' : '') + '<span class="badge">' + STATUS_HE[d.status] + '</span></span>' +
+      '<span class="deal-meta">' + due + owner + (d.amount != null ? '<span class="amount" dir="ltr">' + ils(d.amount) + '</span>' : '') + '<span class="badge">' + STATUS_EN[d.status] + '</span></span>' +
       (ln ? '<span class="latest-note" dir="auto">📝 ' + esc(ln) + '</span>' : '') + '</a></li>';
   }
 
   function listView() {
     const pool = deals.filter(d => d.archived === state.archive);
-    const q = state.q.trim();
-    const shown = q ? pool.filter(d => (d.customer + ' ' + title(d) + ' ' + d.ref).includes(q)) : pool;
+    const q = state.q.trim().toLowerCase();
+    const shown = q ? pool.filter(d => (d.customer + ' ' + title(d) + ' ' + d.ref).toLowerCase().includes(q)) : pool;
     const open = shown.filter(d => d.status === 'open'), closed = shown.filter(d => d.status !== 'open');
     const active = deals.filter(d => !d.archived);
     let html = '';
     if (!state.archive) {
       const mix = { open: 0, completed: 0, cancelled: 0 }; active.forEach(d => mix[d.status]++);
       const overdue = active.filter(isOverdue).length;
-      html += '<section class="overview" id="ovStatus"><div class="ov-status"><span class="ov-label">סטטוס:</span>' +
-        '<span class="ov-stat"><b>' + mix.open + '</b> פתוח</span><span class="ov-stat"><b>' + mix.completed + '</b> הועברה לביצוע</span><span class="ov-stat"><b>' + mix.cancelled + '</b> בוטל</span>' +
-        (overdue ? '<span class="ov-stat ov-overdue"><b>' + overdue + '</b> באיחור</span>' : '') + '</div></section>';
+      html += '<section class="overview" id="ovStatus"><div class="ov-status"><span class="ov-label">Status:</span>' +
+        '<span class="ov-stat"><b>' + mix.open + '</b> Open</span><span class="ov-stat"><b>' + mix.completed + '</b> Completed</span><span class="ov-stat"><b>' + mix.cancelled + '</b> Cancelled</span>' +
+        (overdue ? '<span class="ov-stat ov-overdue"><b>' + overdue + '</b> Overdue</span>' : '') + '</div></section>';
       const cards = Object.keys(AGENTS).map(id => {
         id = +id; const mine = active.filter(d => d.agent === id);
         const o = mine.filter(d => d.status === 'open').length, c = mine.filter(d => d.status === 'completed').length, x = mine.filter(d => d.status === 'cancelled').length;
         const ov = mine.filter(isOverdue).length;
         const amt = mine.filter(d => d.status === 'completed' && d.amount != null).reduce((s, d) => s + d.amount, 0);
         return '<article class="agent-card"><header class="ac-head">' + esc(AGENTS[id]) + '</header><div class="ac-body"><div class="donut-wrap">' + donut(o, c, x) + '</div>' +
-          '<ul class="ac-legend"><li><span class="lg-dot lg-open"></span>פתוחות<b>' + o + '</b></li><li><span class="lg-dot lg-done"></span>הושלמו<b>' + c + '</b></li><li><span class="lg-dot lg-cancelled"></span>בוטלו<b>' + x + '</b></li></ul></div>' +
-          '<footer class="ac-stats"><div class="ac-stat"><span class="acs-val">' + mine.length + '</span><span class="acs-lbl">סה״כ</span></div>' +
-          '<div class="ac-stat' + (ov ? ' ac-stat-warn' : '') + '"><span class="acs-val">' + ov + '</span><span class="acs-lbl">באיחור</span></div>' +
-          '<div class="ac-stat"><span class="acs-val" dir="ltr">' + (c ? ils(amt) : '—') + '</span><span class="acs-lbl">המרה</span></div></footer></article>';
+          '<ul class="ac-legend"><li><span class="lg-dot lg-open"></span>Open<b>' + o + '</b></li><li><span class="lg-dot lg-done"></span>Completed<b>' + c + '</b></li><li><span class="lg-dot lg-cancelled"></span>Cancelled<b>' + x + '</b></li></ul></div>' +
+          '<footer class="ac-stats"><div class="ac-stat"><span class="acs-val">' + mine.length + '</span><span class="acs-lbl">Total</span></div>' +
+          '<div class="ac-stat' + (ov ? ' ac-stat-warn' : '') + '"><span class="acs-val">' + ov + '</span><span class="acs-lbl">Overdue</span></div>' +
+          '<div class="ac-stat"><span class="acs-val" dir="ltr">' + (c ? ils(amt) : '—') + '</span><span class="acs-lbl">Won Value</span></div></footer></article>';
       }).join('');
-      html += '<section class="overview overview-cards" id="ovCards"><span class="ov-label">עסקאות לפי סוכן:</span><div class="agent-cards">' + cards + '</div></section>';
+      html += '<section class="overview overview-cards" id="ovCards"><span class="ov-label">Deals by Salesperson:</span><div class="agent-cards">' + cards + '</div></section>';
     }
-    html += '<section><h1 class="visually-hidden">' + (state.archive ? 'ארכיון' : 'עסקאות') + '</h1>' +
-      '<form class="deal-search" role="search" id="searchForm"><input class="ds-q" id="dsq" name="q" type="search" dir="auto" value="' + esc(state.q) + '" placeholder="חיפוש לפי שם לקוח / מספר עסקה…" aria-label="חיפוש עסקאות">' +
-      '<label class="ds-date">מ־<input name="date_from" type="date" aria-label="מתאריך"></label><label class="ds-date">עד<input name="date_to" type="date" aria-label="עד תאריך"></label></form>' +
-      '<div id="deal-list"><div class="tabs" role="tablist"><button type="button" class="tab' + (state.sub === 'open' ? ' active' : '') + '" data-sub="open">פתוח (' + open.length + ')</button>' +
-      '<button type="button" class="tab' + (state.sub === 'closed' ? ' active' : '') + '" data-sub="closed">הועברה לביצוע / בוטל (' + closed.length + ')</button></div>';
+    html += '<section><h1 class="visually-hidden">' + (state.archive ? 'Archive' : 'Deals') + '</h1>' +
+      '<form class="deal-search" role="search" id="searchForm"><input class="ds-q" id="dsq" name="q" type="search" dir="auto" value="' + esc(state.q) + '" placeholder="Search by customer name or quote #…" aria-label="Search deals">' +
+      '<label class="ds-date">From<input name="date_from" type="date" aria-label="From date"></label><label class="ds-date">To<input name="date_to" type="date" aria-label="To date"></label></form>' +
+      '<div id="deal-list"><div class="tabs" role="tablist"><button type="button" class="tab' + (state.sub === 'open' ? ' active' : '') + '" data-sub="open">Open (' + open.length + ')</button>' +
+      '<button type="button" class="tab' + (state.sub === 'closed' ? ' active' : '') + '" data-sub="closed">Completed / Cancelled (' + closed.length + ')</button></div>';
     const list = state.sub === 'open' ? open : closed;
     html += list.length ? '<ul class="deals">' + list.map(dealItem).join('') + '</ul>'
-      : '<p class="empty">' + (state.archive ? 'אין עסקאות בארכיון.' : state.sub === 'open' ? 'אין עסקאות פתוחות.' : 'אין עסקאות שהושלמו או בוטלו.') + '</p>';
+      : '<p class="empty">' + (state.archive ? 'No archived deals.' : state.sub === 'open' ? 'No open deals.' : 'No completed or cancelled deals.') + '</p>';
     html += '</div></section>';
     return chrome(html, state.archive ? 'archive' : 'deals');
   }
@@ -740,72 +760,72 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
     let nudgeFact = '';
     if (d.status === 'open' && d.agent) {
       const n = dayDiff(nudgeAt(d), TODAY);
-      const txt = n > 1 ? 'בעוד ' + n + ' ימים' : n === 1 ? 'מחר' : n === 0 ? 'היום' : '<span class="unassigned">חלף לפני ' + (-n) + ' ימים</span>';
-      nudgeFact = '<div class="pc-fact"><span class="pc-l">תזכורת לסוכן</span><span class="pc-v">' + txt + '</span></div>';
+      const txt = n > 1 ? 'In ' + n + ' days' : n === 1 ? 'Tomorrow' : n === 0 ? 'Today' : '<span class="unassigned">Sent ' + (-n) + ' days ago</span>';
+      nudgeFact = '<div class="pc-fact"><span class="pc-l">Agent Reminder</span><span class="pc-v">' + txt + '</span></div>';
     }
-    const items = [['שירות ותחזוקה – חבילה שנתית', 1, Math.round(d.amount * 0.55)], ['התקנה והגעה לאתר', 1, Math.round(d.amount * 0.25)], ['חומרים', 1, 0]];
+    const items = [['Annual Service & Maintenance Package', 1, Math.round(d.amount * 0.55)], ['On-Site Installation & Setup', 1, Math.round(d.amount * 0.25)], ['Hardware & Materials', 1, 0]];
     const net = Math.round(d.amount / 1.18);
     items[2][2] = net - items[0][2] - items[1][2];
-    const paper = '<div class="paper" id="pdfDoc" aria-label="תצוגת ההצעה (לדוגמה)"><div class="p-top"><div><div class="p-title">הצעת מחיר מס׳ ' + d.ref + '</div><div>תאריך: ' + ildate(d.created) + '</div></div><div style="text-align:end">' + esc(brand().name) + '<br>ע.מ. 000000000</div></div>' +
-      '<div>לכבוד: <b id="pdfCustomer">' + esc(d.customer) + '</b></div>' +
-      '<table><thead><tr><th>פריט</th><th>כמות</th><th style="text-align:end">סכום</th></tr></thead><tbody>' +
+    const paper = '<div class="paper" id="pdfDoc" aria-label="Sample price quote preview"><div class="p-top"><div><div class="p-title">Price Quote #' + d.ref + '</div><div>Date: ' + ildate(d.created) + '</div></div><div style="text-align:end">' + esc(brand().name) + '<br>Reg. # 000000000</div></div>' +
+      '<div>To: <b id="pdfCustomer">' + esc(d.customer) + '</b></div>' +
+      '<table><thead><tr><th>Item</th><th>Qty</th><th style="text-align:end">Amount</th></tr></thead><tbody>' +
       items.map(r => '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td class="n" dir="ltr">' + ils(r[2]) + '</td></tr>').join('') + '</tbody></table>' +
-      '<div class="p-total"><span>סה״כ לתשלום כולל מע״מ</span><span id="pdfTotal" dir="ltr">' + ils(d.amount) + '</span></div></div>';
+      '<div class="p-total"><span>Total Due (incl. Tax)</span><span id="pdfTotal" dir="ltr">' + ils(d.amount) + '</span></div></div>';
 
-    let html = '<a class="back" href="#" data-back="1">← חזרה</a><section class="deal-edit"><h1 dir="auto">' + esc(title(d)) + '</h1>' +
+    let html = '<a class="back" href="#" data-back="1">← Back to deals</a><section class="deal-edit"><h1 dir="auto">' + esc(title(d)) + '</h1>' +
       '<div class="proposal-card" id="propCard"><div class="pc-head"><span class="pc-customer" dir="auto">' + esc(d.customer) + '</span>' + (d.amount != null ? '<span class="pc-amount" dir="ltr">' + ils(d.amount) + '</span>' : '') + '</div>' +
-      '<div class="pc-facts"><div class="pc-fact"><span class="pc-l">אחראי</span><span class="pc-v">' + (agent ? esc(agent) : '<span class="unassigned">⚠ לא שויך</span>') + '</span></div>' +
-      '<div class="pc-fact"><span class="pc-l">תאריך יעד</span><span class="pc-v" dir="ltr">' + (ildate(d.follow) || '—') + '</span></div>' +
-      '<div class="pc-fact"><span class="pc-l">סטטוס</span><span class="pc-v"><span class="status-chip status-' + d.status + '">' + STATUS_HE[d.status] + '</span></span></div>' + nudgeFact +
-      '<div class="pc-fact"><span class="pc-l">מספר הצעה</span><span class="pc-v" dir="ltr">' + d.ref + '</span></div></div>' +
-      '<div class="pdf-view" id="pdfView"><p class="pdf-row"><i class="ic ic-pdf" aria-hidden="true"></i> הצעת מחיר שהתקבלה במייל. <span class="pdf-open" id="pdfOpen">פתיחת ההצעה בכרטיסייה חדשה</span></p>' + paper + '</div></div>';
-    if (isDelayed(d)) html += '<p class="delayed-banner">⚠ תאריך היעד נדחה מ־' + ildate(d.followOrig) + (d.editor ? ' (עודכן ע״י ' + esc(d.editor) + ')' : '') + '</p>';
+      '<div class="pc-facts"><div class="pc-fact"><span class="pc-l">Owner</span><span class="pc-v">' + (agent ? esc(agent) : '<span class="unassigned">⚠ Unassigned</span>') + '</span></div>' +
+      '<div class="pc-fact"><span class="pc-l">Follow-Up Date</span><span class="pc-v" dir="ltr">' + (ildate(d.follow) || '—') + '</span></div>' +
+      '<div class="pc-fact"><span class="pc-l">Status</span><span class="pc-v"><span class="status-chip status-' + d.status + '">' + STATUS_EN[d.status] + '</span></span></div>' + nudgeFact +
+      '<div class="pc-fact"><span class="pc-l">Quote #</span><span class="pc-v" dir="ltr">' + d.ref + '</span></div></div>' +
+      '<div class="pdf-view" id="pdfView"><p class="pdf-row"><i class="ic ic-pdf" aria-hidden="true"></i> Price quote captured from inbound email. <span class="pdf-open" id="pdfOpen">Open quote in new tab</span></p>' + paper + '</div></div>';
+    if (isDelayed(d)) html += '<p class="delayed-banner">⚠ Follow-up date rescheduled from ' + ildate(d.followOrig) + (d.editor ? ' (updated by ' + esc(d.editor) + ')' : '') + '</p>';
     if (d.status === 'open') {
-      html += '<form class="outcome-form" id="outcomeForm" novalidate><h2 class="outcome-h">עדכון מצב העסקה</h2><div class="outcome-choices">' +
-        '<div class="oc-block oc-completed"><label class="oc"><input type="radio" name="outcome" value="completed"> <i class="ic ic-check" aria-hidden="true"></i> הועברה לביצוע</label></div>' +
-        '<div class="oc-block oc-reschedule"><label class="oc"><input type="radio" name="outcome" value="reschedule"> <i class="ic ic-reschedule" aria-hidden="true"></i> לטיפול חוזר (תאריך חדש)</label>' +
-        '<div class="oc-fields" data-for="reschedule" hidden><label>תאריך יעד חדש <span class="req">*</span> <span class="label-hint">(יום/חודש/שנה)</span><input type="date" id="oc_date" name="new_date" data-req disabled></label>' +
-        '<label>סיבת הדחייה <span class="label-hint">(לא חובה)</span><textarea name="note" id="oc_rnote" dir="auto" rows="2" placeholder="מה גרם לדחייה?" disabled></textarea></label></div></div>' +
-        '<div class="oc-block oc-cancelled"><label class="oc"><input type="radio" name="outcome" value="cancelled"> <i class="ic ic-cancel" aria-hidden="true"></i> בוטלה</label>' +
-        '<div class="oc-fields" data-for="cancelled" hidden><label>סיבת הביטול <span class="req">*</span><textarea name="note" id="oc_cnote" dir="auto" rows="2" placeholder="חובה — מדוע העסקה בוטלה?" data-req disabled></textarea></label></div></div>' +
-        '</div><button type="submit" class="primary" id="oc_submit" disabled>שמירת עדכון</button></form>';
+      html += '<form class="outcome-form" id="outcomeForm" novalidate><h2 class="outcome-h">Update Deal Status</h2><div class="outcome-choices">' +
+        '<div class="oc-block oc-completed"><label class="oc"><input type="radio" name="outcome" value="completed"> <i class="ic ic-check" aria-hidden="true"></i> Completed (Handed to Fulfillment)</label></div>' +
+        '<div class="oc-block oc-reschedule"><label class="oc"><input type="radio" name="outcome" value="reschedule"> <i class="ic ic-reschedule" aria-hidden="true"></i> Schedule Follow-Up (New Date)</label>' +
+        '<div class="oc-fields" data-for="reschedule" hidden><label>New follow-up date <span class="req">*</span> <span class="label-hint">(dd/mm/yyyy)</span><input type="date" id="oc_date" name="new_date" data-req disabled></label>' +
+        '<label>Reason for rescheduling <span class="label-hint">(optional)</span><textarea name="note" id="oc_rnote" dir="auto" rows="2" placeholder="What prompted the new date?" disabled></textarea></label></div></div>' +
+        '<div class="oc-block oc-cancelled"><label class="oc"><input type="radio" name="outcome" value="cancelled"> <i class="ic ic-cancel" aria-hidden="true"></i> Cancelled</label>' +
+        '<div class="oc-fields" data-for="cancelled" hidden><label>Cancellation reason <span class="req">*</span><textarea name="note" id="oc_cnote" dir="auto" rows="2" placeholder="Required — why was the deal cancelled?" data-req disabled></textarea></label></div></div>' +
+        '</div><button type="submit" class="primary" id="oc_submit" disabled>Save Update</button></form>';
     }
     const agentOpts = Object.keys(AGENTS).map(id => '<option value="' + id + '"' + (+id === d.agent ? ' selected' : '') + '>' + esc(AGENTS[id]) + '</option>').join('');
-    html += '<details class="manager-edit" id="mgrEdit"><summary><span class="me-title"><i class="ic ic-pencil" aria-hidden="true"></i> עריכת עסקה — אפשרויות מנהל</span><span class="me-caret" aria-hidden="true">▾</span></summary>' +
-      '<form id="editForm"><div class="row"><label>תאריך יעד <span class="label-hint">(יום/חודש/שנה)</span><input name="follow" id="ed_follow" type="date" value="' + (d.follow || '') + '"></label>' +
-      '<label>סוכן אחראי' + (d.agent ? '' : ' <span class="req">— לא שויך, יש לבחור</span>') + '<select name="agent" id="ed_agent">' + (d.agent ? '' : '<option value="" selected disabled>בחר/י סוכן…</option>') + agentOpts + '</select></label></div>' +
-      '<button type="submit" class="primary">שמירה</button></form></details>';
-    if (d.phone) html += '<p class="wa-row"><span class="wa-link">יצירת קשר עם הלקוח</span></p>';
-    html += '<div class="deal-actions"><button type="button" class="ghost" data-archive="' + d.id + '"><i class="ic ic-archive" aria-hidden="true"></i> ' + (d.archived ? 'שחזור מהארכיון' : 'העברה לארכיון') + '</button></div></section>';
+    html += '<details class="manager-edit" id="mgrEdit"><summary><span class="me-title"><i class="ic ic-pencil" aria-hidden="true"></i> Edit Deal — Manager Options</span><span class="me-caret" aria-hidden="true">▾</span></summary>' +
+      '<form id="editForm"><div class="row"><label>Follow-Up Date <span class="label-hint">(dd/mm/yyyy)</span><input name="follow" id="ed_follow" type="date" value="' + (d.follow || '') + '"></label>' +
+      '<label>Assigned Salesperson' + (d.agent ? '' : ' <span class="req">— Unassigned, please select</span>') + '<select name="agent" id="ed_agent">' + (d.agent ? '' : '<option value="" selected disabled>Select salesperson…</option>') + agentOpts + '</select></label></div>' +
+      '<button type="submit" class="primary">Save</button></form></details>';
+    if (d.phone) html += '<p class="wa-row"><span class="wa-link">Contact Customer</span></p>';
+    html += '<div class="deal-actions"><button type="button" class="ghost" data-archive="' + d.id + '"><i class="ic ic-archive" aria-hidden="true"></i> ' + (d.archived ? 'Restore from Archive' : 'Move to Archive') + '</button></div></section>';
 
-    const tl = [{ kind: 'event', body: 'העסקה נוצרה ממייל נכנס' + (agent ? ' · שויכה ל־' + agent : ' · לא נמצא סוכן תואם'), author: 'מערכת', at: d.created + ' 09:12' }].concat(d.notes);
-    html += '<section class="notes" id="notesSec"><h2>הערות ופעילות</h2><ul class="timeline">' + tl.map(n => {
+    const tl = [{ kind: 'event', body: 'Deal created from inbound quote email' + (agent ? ' · assigned to ' + agent : ' · no matching salesperson found'), author: 'System', at: d.created + ' 09:12' }].concat(d.notes);
+    html += '<section class="notes" id="notesSec"><h2>Notes &amp; Activity</h2><ul class="timeline">' + tl.map(n => {
       const meta = esc(n.author) + ' · ' + esc(n.at);
       return n.kind === 'event'
         ? '<li class="tl-event"><span class="tl-dot" aria-hidden="true"></span><span class="tl-event-body" dir="auto">' + esc(n.body) + '</span><span class="tl-event-meta">' + meta + '</span></li>'
         : '<li class="tl-note"><span class="tl-dot" aria-hidden="true"></span><div class="note"><p dir="auto">' + esc(n.body) + '</p><span class="note-meta">' + meta + '</span></div></li>';
-    }).join('') + '</ul><form id="noteForm"><label>הוספת הערה<textarea name="body" id="noteBody" dir="auto" rows="2" required placeholder="פרטים, עדכון, סיכום שיחה..."></textarea></label><button type="submit" class="primary">הוספה</button></form></section>';
+    }).join('') + '</ul><form id="noteForm"><label>Add a note<textarea name="body" id="noteBody" dir="auto" rows="2" required placeholder="Call summary, customer feedback, next steps..."></textarea></label><button type="submit" class="primary">Add Note</button></form></section>';
     return chrome(html, d.archived ? 'archive' : 'deals');
   }
 
   function inquiryView() {
-    const html = '<section class="inquiry"><h1>פנייה מהשטח</h1><p class="inquiry-lede">רישום התעניינות של לקוח. הפנייה נשלחת למנהל במייל, והיא לא יוצרת עסקה. עסקה נפתחת רק כשהצעת המחיר נשלחת במייל.</p>' +
-      (state.inquirySent ? '<p class="inquiry-sent" role="status">הפנייה נשלחה למנהל.</p>' : '') +
-      '<form id="inqForm"><label for="iq_name">שם הלקוח <span class="req">*</span></label><input id="iq_name" required dir="auto" placeholder="שם העסק או איש הקשר">' +
-      '<label for="iq_phone">טלפון</label><input id="iq_phone" dir="ltr" inputmode="tel" placeholder="050-1234567">' +
-      '<label for="iq_what">במה הלקוח מתעניין? <span class="req">*</span></label><textarea id="iq_what" required dir="auto" placeholder="מה נדרש, היקף, לוחות זמנים"></textarea>' +
-      '<button type="submit" class="primary">שליחה למנהל</button></form></section>';
+    const html = '<section class="inquiry"><h1>Field Inquiry</h1><p class="inquiry-lede">Log customer interest from the field. This emails the manager directly without opening a deal — a tracked deal is only created once an official price quote is emailed.</p>' +
+      (state.inquirySent ? '<p class="inquiry-sent" role="status">Inquiry sent to the manager.</p>' : '') +
+      '<form id="inqForm"><label for="iq_name">Customer Name <span class="req">*</span></label><input id="iq_name" required dir="auto" placeholder="Business name or contact person">' +
+      '<label for="iq_phone">Phone</label><input id="iq_phone" dir="ltr" inputmode="tel" placeholder="050-1234567">' +
+      '<label for="iq_what">What is the customer interested in? <span class="req">*</span></label><textarea id="iq_what" required dir="auto" placeholder="Requirements, scope, timeline"></textarea>' +
+      '<button type="submit" class="primary">Send to Manager</button></form></section>';
     return chrome(html, 'inquiry');
   }
 
   function emailFrame(titleBar, content, footer) {
     const b = brand(), e = b.email;
-    return '<div class="mail-wrap"><table role="presentation" dir="rtl" width="100%" cellpadding="0" cellspacing="0" style="width:100%;background:#EFF1F5;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;"><tr><td align="center" style="padding:20px;">' +
-      '<table role="presentation" dir="rtl" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background:#ffffff;border-radius:12px;border:1px solid #dbe2ee;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">' +
-      '<tr><td dir="rtl" align="right" style="background:' + e.primary + ';border-bottom:3px solid ' + e.accent + ';padding:12px 20px;color:#ffffff;font-size:15px;font-weight:bold;">' +
-      '<span style="display:inline-block;vertical-align:middle;margin-left:8px;">' + logo(26) + '</span> ' + titleBar + '</td></tr>' +
-      '<tr><td dir="rtl" align="right" style="padding:22px 24px;">' + content + '</td></tr>' +
-      '<tr><td dir="rtl" align="right" style="padding:12px 24px;border-top:1px solid #eef1f4;font-size:12px;color:#7a8694;">' + (footer || 'הודעה אוטומטית ממערכת ' + esc(b.name)) + '</td></tr>' +
+    return '<div class="mail-wrap"><table role="presentation" dir="ltr" width="100%" cellpadding="0" cellspacing="0" style="width:100%;background:#EFF1F5;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;"><tr><td align="center" style="padding:20px;">' +
+      '<table role="presentation" dir="ltr" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background:#ffffff;border-radius:12px;border:1px solid #dbe2ee;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">' +
+      '<tr><td dir="ltr" align="left" style="background:' + e.primary + ';border-bottom:3px solid ' + e.accent + ';padding:12px 20px;color:#ffffff;font-size:15px;font-weight:bold;">' +
+      '<span style="display:inline-block;vertical-align:middle;margin-right:8px;">' + logo(26) + '</span> ' + titleBar + '</td></tr>' +
+      '<tr><td dir="ltr" align="left" style="padding:22px 24px;">' + content + '</td></tr>' +
+      '<tr><td dir="ltr" align="left" style="padding:12px 24px;border-top:1px solid #eef1f4;font-size:12px;color:#7a8694;">' + (footer || 'Automated notification from ' + esc(b.name)) + '</td></tr>' +
       '</table></td></tr></table></div>';
   }
 
@@ -817,13 +837,13 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
 
   function nudgeView() {
     const d = nudgeDeal(), b = brand();
-    const content = '<div style="font-size:15px;color:#1f2730;margin-bottom:18px;">נא לעדכן את מצב העסקה.</div>' +
-      '<div style="border-top:1px solid #eef1f4;padding-top:16px;"><div style="font-size:13px;color:#7a8694;margin-bottom:4px;">עסקה</div>' +
+    const content = '<div style="font-size:15px;color:#1f2730;margin-bottom:18px;">Please update the status of this deal.</div>' +
+      '<div style="border-top:1px solid #eef1f4;padding-top:16px;"><div style="font-size:13px;color:#7a8694;margin-bottom:4px;">Deal</div>' +
       '<div style="font-size:21px;font-weight:bold;color:#1f2730;line-height:1.3;">' + esc(title(d)) + '</div></div>' +
-      '<div style="margin-top:20px;"><a href="#" id="nudgeBtn" class="mail-btn" data-open="' + d.id + '" style="display:inline-block;background:' + b.color + ';color:#fff;text-decoration:none;padding:11px 22px;border-radius:8px;font-weight:bold;font-size:15px;">פתיחת העסקה ועדכון</a></div>' +
-      '<div style="margin-top:16px;font-size:13px;color:#7a8694;">אפשר לבחור: הועברה לביצוע · לטיפול חוזר (תאריך חדש) · בוטלה.</div>';
-    return '<div class="mailhead" id="mailHead"><span class="subj">' + esc(b.name) + ' · עדכון מצב עסקה</span><span>מאת: <b>' + esc(b.name) + ' – מערכת</b></span><span>אל: <b>' + esc(agentName(d.agent)) + '</b></span><span>נשלח: <b dir="ltr">' + ildate(nudgeAt(d)) + ' 16:00</b></span></div>' +
-      emailFrame(esc(b.name) + ' · עדכון מצב עסקה', content);
+      '<div style="margin-top:20px;"><a href="#" id="nudgeBtn" class="mail-btn" data-open="' + d.id + '" style="display:inline-block;background:' + b.color + ';color:#fff;text-decoration:none;padding:11px 22px;border-radius:8px;font-weight:bold;font-size:15px;">Open Deal &amp; Update</a></div>' +
+      '<div style="margin-top:16px;font-size:13px;color:#7a8694;">Options: Completed · Schedule Follow-Up (New Date) · Cancelled.</div>';
+    return '<div class="mailhead" id="mailHead"><span class="subj">' + esc(b.name) + ' · Deal Follow-Up Reminder</span><span>From: <b>' + esc(b.name) + ' – System</b></span><span>To: <b>' + esc(agentName(d.agent)) + '</b></span><span>Sent: <b dir="ltr">' + ildate(nudgeAt(d)) + ' 16:00</b></span></div>' +
+      emailFrame(esc(b.name) + ' · Deal Follow-Up Reminder', content);
   }
 
   function weeklyView() {
@@ -838,41 +858,41 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
     const overdue = active.filter(isOverdue).length;
     const newWk = active.filter(d => inWk(d.created, wkStart, wkEnd)).length, newPrev = active.filter(d => inWk(d.created, prevStart, '2026-09-20')).length;
     const kpis = [
-      { v: open, l: 'פתוחות', dot: '#5D7FC4' },
-      { v: doneWk.length, l: 'הושלמו השבוע', dot: '#37a866', sub: ils(doneAmt) },
-      { v: cancWk, l: 'בוטלו', dot: '#9aa3b2' },
-      { v: overdue, l: 'באיחור', dot: e.accent }
+      { v: open, l: 'Open', dot: '#5D7FC4' },
+      { v: doneWk.length, l: 'Completed This Week', dot: '#37a866', sub: ils(doneAmt) },
+      { v: cancWk, l: 'Cancelled', dot: '#9aa3b2' },
+      { v: overdue, l: 'Overdue', dot: e.accent }
     ];
     const wow = [
-      { label: 'עסקאות חדשות', cur: newWk, prev: newPrev },
-      { label: 'הועברו לביצוע', cur: doneWk.length, prev: 1 }
+      { label: 'New Deals', cur: newWk, prev: newPrev },
+      { label: 'Completed', cur: doneWk.length, prev: 1 }
     ];
     const maxOf = (m) => Math.max(m.cur, m.prev, 1);
-    let c = '<div style="font-size:15px;color:#1f2730;font-weight:bold;margin-bottom:4px;border-right:3px solid ' + e.accent + ';padding-right:8px;">סיכום שבועי לפי סוכן</div>' +
-      '<div style="font-size:12px;color:#4a5568;margin-bottom:16px;padding-right:11px;">חלון: <span dir="ltr">' + ildate(wkStart) + ' – ' + ildate(wkEnd) + '</span></div>' +
-      '<table dir="rtl" cellpadding="0" cellspacing="0" width="100%" id="wkKpis" style="border-collapse:separate;background:' + e.primary + ';border-radius:8px;"><tr>' +
-      kpis.map((t, i) => '<td width="25%" align="center" valign="top" style="padding:12px 4px 10px;' + (i ? 'border-right:1px solid rgba(255,255,255,.18);' : '') + '">' +
+    let c = '<div style="font-size:15px;color:#1f2730;font-weight:bold;margin-bottom:4px;border-left:3px solid ' + e.accent + ';padding-left:8px;">Weekly Summary by Salesperson</div>' +
+      '<div style="font-size:12px;color:#4a5568;margin-bottom:16px;padding-left:11px;">Window: <span dir="ltr">' + ildate(wkStart) + ' – ' + ildate(wkEnd) + '</span></div>' +
+      '<table dir="ltr" cellpadding="0" cellspacing="0" width="100%" id="wkKpis" style="border-collapse:separate;background:' + e.primary + ';border-radius:8px;"><tr>' +
+      kpis.map((t, i) => '<td width="25%" align="center" valign="top" style="padding:12px 4px 10px;' + (i ? 'border-left:1px solid rgba(255,255,255,.18);' : '') + '">' +
         '<div style="font-size:24px;font-weight:bold;color:#ffffff;line-height:1.1;">' + t.v + '</div>' +
         '<div style="font-size:11px;color:#d3dae6;margin-top:3px;"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:' + t.dot + ';vertical-align:middle;"></span> ' + t.l + '</div>' +
         (t.sub ? '<div dir="ltr" style="font-size:11px;color:#e4e9f2;margin-top:2px;">' + t.sub + '</div>' : '') + '</td>').join('') + '</tr></table>' +
-      '<div style="font-size:13px;color:' + e.primary + ';font-weight:bold;margin:18px 0 8px;">השוואה לשבוע שעבר</div><table dir="rtl" cellpadding="0" cellspacing="0" width="100%" id="wkBars" style="border-collapse:collapse;">' +
+      '<div style="font-size:13px;color:' + e.primary + ';font-weight:bold;margin:18px 0 8px;">Week-over-Week Comparison</div><table dir="ltr" cellpadding="0" cellspacing="0" width="100%" id="wkBars" style="border-collapse:collapse;">' +
       wow.map((m, i) => '<tr><td colspan="3" style="font-size:12px;font-weight:bold;color:#3d485a;padding:' + (i ? '10px' : '0') + ' 0 3px;">' + m.label + '</td></tr>' +
-        '<tr><td width="70" style="font-size:11px;color:#4a5568;padding:2px 0;">השבוע</td><td style="padding:2px 0;"><div style="background:' + e.accent + ';border-radius:4px 0 0 4px;height:12px;width:' + Math.round(m.cur / maxOf(m) * 100) + '%;"></div></td><td width="70" align="left" dir="ltr" style="font-size:12px;color:#1f2730;font-weight:bold;padding:2px 0 2px 4px;">' + m.cur + '</td></tr>' +
-        '<tr><td width="70" style="font-size:11px;color:#4a5568;padding:2px 0;">שבוע שעבר</td><td style="padding:2px 0;"><div style="background:#5D7FC4;border-radius:4px 0 0 4px;height:12px;width:' + Math.round(m.prev / maxOf(m) * 100) + '%;"></div></td><td width="70" align="left" dir="ltr" style="font-size:12px;color:#3d485a;padding:2px 0 2px 4px;">' + m.prev + '</td></tr>').join('') + '</table>' +
-      '<table dir="rtl" cellpadding="0" cellspacing="0" width="100%" id="wkAgents" style="border-collapse:collapse;margin-top:18px;"><tr style="background:' + e.bg + ';color:' + e.primary + ';font-size:12px;"><th align="right" style="padding:8px 10px;">סוכן</th><th style="padding:8px 6px;">פתוחות</th><th style="padding:8px 6px;">הושלמו</th><th style="padding:8px 6px;">בוטלו</th><th style="padding:8px 6px;">באיחור</th><th style="padding:8px 6px;">לטיפול חוזר</th></tr>' +
+        '<tr><td width="80" style="font-size:11px;color:#4a5568;padding:2px 0;">This Week</td><td style="padding:2px 0;"><div style="background:' + e.accent + ';border-radius:0 4px 4px 0;height:12px;width:' + Math.round(m.cur / maxOf(m) * 100) + '%;"></div></td><td width="60" align="right" dir="ltr" style="font-size:12px;color:#1f2730;font-weight:bold;padding:2px 4px 2px 0;">' + m.cur + '</td></tr>' +
+        '<tr><td width="80" style="font-size:11px;color:#4a5568;padding:2px 0;">Last Week</td><td style="padding:2px 0;"><div style="background:#5D7FC4;border-radius:0 4px 4px 0;height:12px;width:' + Math.round(m.prev / maxOf(m) * 100) + '%;"></div></td><td width="60" align="right" dir="ltr" style="font-size:12px;color:#3d485a;padding:2px 4px 2px 0;">' + m.prev + '</td></tr>').join('') + '</table>' +
+      '<table dir="ltr" cellpadding="0" cellspacing="0" width="100%" id="wkAgents" style="border-collapse:collapse;margin-top:18px;"><tr style="background:' + e.bg + ';color:' + e.primary + ';font-size:12px;"><th align="left" style="padding:8px 10px;">Salesperson</th><th style="padding:8px 6px;">Open</th><th style="padding:8px 6px;">Completed</th><th style="padding:8px 6px;">Cancelled</th><th style="padding:8px 6px;">Overdue</th><th style="padding:8px 6px;">Rescheduled</th></tr>' +
       Object.keys(AGENTS).map(id => {
         id = +id; const mine = active.filter(d => d.agent === id);
         const dw = mine.filter(d => d.status === 'completed' && inWk(d.completedOn, wkStart, wkEnd));
         const amt = dw.reduce((s, d) => s + (d.amount || 0), 0);
-        return '<tr style="border-top:1px solid #e6ebf4;font-size:14px;color:#1f2730;"><td align="right" style="padding:9px 10px;font-weight:bold;">' + esc(AGENTS[id]) + '</td>' +
+        return '<tr style="border-top:1px solid #e6ebf4;font-size:14px;color:#1f2730;"><td align="left" style="padding:9px 10px;font-weight:bold;">' + esc(AGENTS[id]) + '</td>' +
           '<td align="center" style="padding:9px 6px;">' + mine.filter(d => d.status === 'open').length + '</td>' +
           '<td align="center" style="padding:9px 6px;color:#1f7a3d;">' + dw.length + (amt ? '<br><span dir="ltr" style="font-size:11px;color:#3d485a;font-weight:normal;">' + ils(amt) + '</span>' : '') + '</td>' +
           '<td align="center" style="padding:9px 6px;color:#76808f;">' + mine.filter(d => d.status === 'cancelled').length + '</td>' +
           '<td align="center" style="padding:9px 6px;color:' + e.accent + ';">' + mine.filter(isOverdue).length + '</td>' +
           '<td align="center" style="padding:9px 6px;">' + mine.filter(isDelayed).length + '</td></tr>';
       }).join('') + '</table>';
-    return '<div class="mailhead"><span class="subj">' + esc(b.name) + ' · סיכום שבועי</span><span>אל: <b>' + esc(MANAGER.name) + '</b></span><span>נשלח: <b dir="ltr">' + ildate('2026-09-27') + ' 07:00</b></span></div>' +
-      emailFrame(esc(b.name) + ' · סיכום שבועי', c);
+    return '<div class="mailhead"><span class="subj">' + esc(b.name) + ' · Weekly Sales Summary</span><span>To: <b>' + esc(MANAGER.name) + '</b></span><span>Sent: <b dir="ltr">' + ildate('2026-09-27') + ' 07:00</b></span></div>' +
+      emailFrame(esc(b.name) + ' · Weekly Sales Summary', c);
   }
 
   /* ── annotations (English, for the reader) ── */
@@ -1014,8 +1034,8 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
     if (arc) {
       const d = byId(+arc.dataset.archive);
       d.archived = !d.archived;
-      d.notes.push({ kind: 'event', body: d.archived ? 'הועברה לארכיון' : 'שוחזרה מהארכיון', author: MANAGER.name, at: TODAY + ' 10:05' });
-      state.flash = d.archived ? 'העסקה הועברה לארכיון. אפשר לשחזר אותה מלשונית הארכיון.' : 'העסקה שוחזרה.';
+      d.notes.push({ kind: 'event', body: d.archived ? 'Moved to archive' : 'Restored from archive', author: MANAGER.name, at: TODAY + ' 10:05' });
+      state.flash = d.archived ? 'Deal moved to archive. You can restore it from the Archive tab.' : 'Deal restored from archive.';
       state.view = 'list'; state.archive = false; render(); return;
     }
   });
@@ -1058,34 +1078,34 @@ footer.pg-foot .built b { font: 500 11.5px/1 var(--f-mono); letter-spacing: .06e
       const body = document.getElementById('noteBody').value.trim();
       if (!body) { f.reportValidity(); return; }
       d.notes.push({ kind: 'note', body, author: who, at: now() });
-      state.flash = 'ההערה נוספה.'; render(true); return;
+      state.flash = 'Note added.'; render(true); return;
     }
     if (f.id === 'editForm') {
       const nf = document.getElementById('ed_follow').value, na = document.getElementById('ed_agent').value;
-      if (nf && nf !== d.follow) { if (d.follow && !d.followOrig) d.followOrig = d.follow; d.notes.push({ kind: 'event', body: 'תאריך היעד עודכן ל־' + ildate(nf), author: who, at: now() }); d.follow = nf; d.editor = who; }
-      if (na && +na !== d.agent) { d.agent = +na; d.notes.push({ kind: 'event', body: 'שויכה ל־' + AGENTS[na], author: who, at: now() }); }
-      state.flash = 'העסקה עודכנה.'; render(); return;
+      if (nf && nf !== d.follow) { if (d.follow && !d.followOrig) d.followOrig = d.follow; d.notes.push({ kind: 'event', body: 'Follow-up date updated to ' + ildate(nf), author: who, at: now() }); d.follow = nf; d.editor = who; }
+      if (na && +na !== d.agent) { d.agent = +na; d.notes.push({ kind: 'event', body: 'Assigned to ' + AGENTS[na], author: who, at: now() }); }
+      state.flash = 'Deal updated.'; render(); return;
     }
     if (f.id === 'outcomeForm') {
       if (!f.checkValidity()) { f.reportValidity(); return; }
       const kind = (f.querySelector('input[name="outcome"]:checked') || {}).value;
       if (kind === 'completed') {
         d.status = 'completed'; d.completedOn = TODAY;
-        d.notes.push({ kind: 'event', body: 'סטטוס עודכן: הועברה לביצוע', author: who, at: now() });
-        state.flash = 'העסקה סומנה כהועברה לביצוע.';
+        d.notes.push({ kind: 'event', body: 'Status updated: Completed', author: who, at: now() });
+        state.flash = 'Deal marked as completed.';
       } else if (kind === 'reschedule') {
         const nd = document.getElementById('oc_date').value, why = document.getElementById('oc_rnote').value.trim();
         if (!d.followOrig) d.followOrig = d.follow || nd;
-        d.notes.push({ kind: 'event', body: 'תאריך היעד עודכן' + (d.follow ? ': ' + ildate(d.follow) + ' ← ' + ildate(nd) : ' ל־' + ildate(nd)), author: who, at: now() });
+        d.notes.push({ kind: 'event', body: 'Follow-up date updated' + (d.follow ? ': ' + ildate(d.follow) + ' → ' + ildate(nd) : ' to ' + ildate(nd)), author: who, at: now() });
         if (why) d.notes.push({ kind: 'note', body: why, author: who, at: now() });
         d.follow = nd; d.editor = who; d.nudgeAt = nd;
-        state.flash = 'תאריך היעד עודכן והתזכורת תוזמנה מחדש.';
+        state.flash = 'Follow-up date updated and reminder rescheduled.';
       } else if (kind === 'cancelled') {
         const why = document.getElementById('oc_cnote').value.trim();
         d.status = 'cancelled';
-        d.notes.push({ kind: 'event', body: 'העסקה בוטלה · נשלחה התראה למנהל', author: who, at: now() });
+        d.notes.push({ kind: 'event', body: 'Deal cancelled · Manager notified', author: who, at: now() });
         d.notes.push({ kind: 'note', body: why, author: who, at: now() });
-        state.flash = 'העסקה בוטלה. המנהל קיבל התראה במייל.';
+        state.flash = 'Deal cancelled. Manager notified via email.';
       }
       render(); return;
     }
